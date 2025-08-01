@@ -1,2 +1,2 @@
-#  GeoVault
-Personal app created to track and document places I've visited around the world.
+#  GigGrid
+App created to track and document music events & festivals attended and plan future ones.
