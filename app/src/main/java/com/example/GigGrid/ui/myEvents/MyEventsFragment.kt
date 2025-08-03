@@ -126,6 +126,12 @@ class MyEventsFragment : Fragment() {
             )
             binding.recyclerView.adapter = imageAdapter
 
+            if (uris.size >= 8){
+                binding.fabAddImage.visibility = View.GONE
+            } else {
+                binding.fabAddImage.visibility = View.VISIBLE
+            }
+
             if (uris.isNotEmpty()) {
                 val params = binding.fabAddImage.layoutParams as ViewGroup.MarginLayoutParams
                 params.topMargin = 16.dpToPx()
