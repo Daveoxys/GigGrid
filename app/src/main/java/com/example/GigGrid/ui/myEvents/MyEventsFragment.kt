@@ -8,14 +8,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.activity.addCallback
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.fragment.app.viewModels
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import coil.load
 import com.example.GigGrid.databinding.FragmentMyEventsBinding
 
 class MyEventsFragment : Fragment() {
@@ -59,23 +59,8 @@ class MyEventsFragment : Fragment() {
         setupRecyclerView()
         setupListeners()
         observeViewModel()
+        setupZoomOverlay()
     }
-
-    private fun setupRecyclerView() {
-        val imageList = viewModel.imageUris.value.orEmpty()
-
-        imageAdapter = ImageAdapter(imageList) { uri ->
-            viewModel.removeImage(uri)
-        }
-
-        binding.recyclerView.apply {
-            adapter = imageAdapter
-
-            // CHANGE: Use GridLayoutManager with 2 columns
-            layoutManager = GridLayoutManager(context, 2)
-        }
-    }
-
 
     private fun setupListeners() {
         binding.fabAddImage.setOnClickListener {
@@ -84,15 +69,63 @@ class MyEventsFragment : Fragment() {
         }
     }
 
+    private fun setupRecyclerView() {
+        val imageList = viewModel.imageUris.value.orEmpty()
+
+        imageAdapter = ImageAdapter(
+            images = imageList,
+            onRemoveClick = { uri -> viewModel.removeImage(uri) },
+            onImageClick = { uri -> showZoomedImage(uri) }
+        )
+
+        binding.recyclerView.apply {
+            adapter = imageAdapter
+
+            // Use GridLayoutManager with 2 columns
+            layoutManager = GridLayoutManager(context, 2)
+        }
+    }
+
+    private fun setupZoomOverlay() {
+        binding.zoomOverlay.setOnClickListener {
+            hideZoomedImage()
+        }
+
+        // Handle the system back button to close the zoomed image
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            if (binding.zoomOverlay.visibility == View.VISIBLE) {
+                hideZoomedImage()
+            } else {
+                // If not zoomed, let the back button behave normally
+                this.isEnabled = false
+                requireActivity().onBackPressedDispatcher.onBackPressed()
+                this.isEnabled = true
+            }
+        }
+    }
+
+    // Function to show the zoomed image
+    private fun showZoomedImage(uri: Uri) {
+        binding.zoomedImageView.load(uri) {
+            crossfade(true)
+        }
+        binding.zoomOverlay.visibility = View.VISIBLE
+    }
+
+    private fun hideZoomedImage() {
+        binding.zoomOverlay.visibility = View.GONE
+    }
+
     private fun observeViewModel() {
         viewModel.imageUris.observe(viewLifecycleOwner) { uris ->
-            imageAdapter = ImageAdapter(uris) { uri ->
-                viewModel.removeImage(uri)
-            }
+            // Update the adapter with the new list and both click listeners
+            imageAdapter = ImageAdapter(
+                images = uris,
+                onRemoveClick = { uri -> viewModel.removeImage(uri) },
+                onImageClick = { uri -> showZoomedImage(uri) }
+            )
             binding.recyclerView.adapter = imageAdapter
 
-            // The FAB logic from before still works correctly with the new layout
-            // if you adjust the layout of the RecyclerView above the FAB.
             if (uris.isNotEmpty()) {
                 val params = binding.fabAddImage.layoutParams as ViewGroup.MarginLayoutParams
                 params.topMargin = 16.dpToPx()

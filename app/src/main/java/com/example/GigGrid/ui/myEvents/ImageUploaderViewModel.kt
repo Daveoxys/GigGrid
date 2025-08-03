@@ -17,7 +17,7 @@ class ImageUploaderViewModel (private val context: Context): ViewModel() {
     val imageUris: LiveData<List<Uri>> = _imageUris
 
     // Maximum number of images allowed
-    private val MAX_IMAGES = 6
+    private val MAX_IMAGES = 8
     private val PREFS_NAME = "image_uploader_prefs"
     private val KEY_IMAGE_URIS = "image_uris"
 

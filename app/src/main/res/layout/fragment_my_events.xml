@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     tools:context=".ui.myEvents.MyEventsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
+        android:padding="16dp"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,10 +24,32 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:src="@drawable/add_button"
-        app:layout_constraintTop_toBottomOf="@id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
         android:contentDescription="add image button" />
 
+    <FrameLayout
+        android:id="@+id/zoom_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99000000"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/zoomed_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter"
+            android:padding="16dp"
+            tools:src="@drawable/ic_launcher_background" />
+
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
