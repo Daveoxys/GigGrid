@@ -1,4 +1,4 @@
-package com.example.GigGrid.ui.slideshow;
+package com.example.GigGrid.ui.myEvents;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
