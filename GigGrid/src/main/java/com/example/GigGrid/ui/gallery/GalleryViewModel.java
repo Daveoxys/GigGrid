@@ -1,4 +1,4 @@
-package com.example.GigGrid.ui.gallery;
+package com.example.GigGrid.ui.eventDiary;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

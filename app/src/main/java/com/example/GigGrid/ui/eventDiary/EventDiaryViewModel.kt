@@ -1,13 +1,13 @@
-package com.example.GigGrid.ui.gallery
+package com.example.GigGrid.ui.eventDiary
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class GalleryViewModel : ViewModel() {
+class EventDiaryViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is gallery Fragment"
+        value = "Replace this with media and text for each event"
     }
     val text: LiveData<String> = _text
 }
