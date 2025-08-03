@@ -23,7 +23,7 @@ class EventDiaryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val galleryViewModel =
-            ViewModelProvider(this).get(EventDiaryViewModel::class.java)
+            ViewModelProvider(this)[EventDiaryViewModel::class.java]
 
         _binding = FragmentEventDiaryBinding.inflate(inflater, container, false)
         val root: View = binding.root

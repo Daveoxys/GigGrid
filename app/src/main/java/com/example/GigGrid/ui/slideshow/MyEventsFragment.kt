@@ -1,4 +1,4 @@
-package com.example.GigGrid.ui.eventDiary
+package com.example.GigGrid.ui.slideshow
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.GigGrid.databinding.FragmentEventDiaryBinding
+import com.example.GigGrid.ui.eventDiary.EventDiaryViewModel
 
-class EventDiaryFragment : Fragment() {
+class MyEventsFragment : Fragment() {
 
     private var _binding: FragmentEventDiaryBinding? = null
 

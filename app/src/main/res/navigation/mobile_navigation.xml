@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_event_diary"
         android:name="com.example.GigGrid.ui.eventDiary.EventDiaryFragment"
-        android:label="@string/menu_gallery"
+        android:label="@string/menu_event_diary"
         tools:layout="@layout/fragment_event_diary" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.GigGrid.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_my_events"
+        android:name="com.example.GigGrid.ui.slideshow.MyEventsFragment"
+        android:label="@string/menu_my_events"
+        tools:layout="@layout/fragment_my_events" />
 </navigation>
