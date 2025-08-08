@@ -22,12 +22,12 @@
         android:id="@+id/fab_add_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:contentDescription="add image button"
         android:src="@drawable/add_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="@color/design_default_color_surface"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
-        android:contentDescription="add image button" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <FrameLayout
         android:id="@+id/zoom_overlay"

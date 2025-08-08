@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -36,7 +37,9 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
 }
+
 
 dependencies {
     implementation(libs.androidx.core.ktx)
@@ -70,5 +73,4 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.7.1")
 
     implementation("com.google.code.gson:gson:2.13.1")
-
 }

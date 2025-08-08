@@ -1,6 +1,6 @@
 package com.example.GigGrid.ui.myEvents
 
-import ImageUploaderViewModelFactory
+import com.example.GigGrid.ui.myEvents.viewmodel.ImageUploaderViewModelFactory
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import coil.load
 import com.example.GigGrid.databinding.FragmentMyEventsBinding
+import com.example.GigGrid.ui.myEvents.viewmodel.ImageUploaderViewModel
 
 class MyEventsFragment : Fragment() {
 

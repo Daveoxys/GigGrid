@@ -1,4 +1,4 @@
-package com.example.GigGrid.ui.myEvents
+package com.example.GigGrid.ui.myEvents.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
