@@ -10,8 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -25,26 +23,7 @@ class MyEventsFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var viewModel: ImageUploaderViewModel
     private lateinit var imageAdapter: ImageAdapter
-
-    // Activity Result Launcher to pick an image from the gallery
-    private val getImageFromGallery = registerForActivityResult(
-        ActivityResultContracts.GetContent()
-    ) { uri: Uri? ->
-        uri?.let {
-            // Persist read access permission to the URI
-            requireContext().contentResolver.takePersistableUriPermission(
-                it, Intent.FLAG_GRANT_READ_URI_PERMISSION
-            )
-            viewModel.addImage(it)
-        }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        // Initialize the ViewModel using the factory here
-        val factory = ImageUploaderViewModelFactory(context)
-        viewModel = ViewModelProvider(this, factory)[ImageUploaderViewModel::class.java]
-    }
+    private var tempImageUri: Uri? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,6 +42,34 @@ class MyEventsFragment : Fragment() {
         setupZoomOverlay()
     }
 
+    // Activity Result Launcher to pick an image from the gallery
+    private val getImageFromGallery = registerForActivityResult(
+        ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        uri?.let {
+            requireContext().contentResolver.takePersistableUriPermission(it, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            tempImageUri = it
+            showDetailsDialog()
+        }
+    }
+
+    private fun showDetailsDialog(){
+        tempImageUri?.let { uri ->
+            val dialog = ImageDetailsDialogFragment { bandEvent, location, date ->
+                viewModel.addImage(ImageItem(uri, bandEvent, location, date))
+                tempImageUri = null
+            }
+            dialog.show(childFragmentManager, "ImageDetailsDialog")
+        }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        // Initialize the ViewModel using the factory here
+        val factory = ImageUploaderViewModelFactory(context)
+        viewModel = ViewModelProvider(this, factory)[ImageUploaderViewModel::class.java]
+    }
+
     private fun setupListeners() {
         binding.fabAddImage.setOnClickListener {
             // Launch the image picker
@@ -71,18 +78,14 @@ class MyEventsFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        val imageList = viewModel.imageUris.value.orEmpty()
-
+        val imageList = viewModel.imageItems.value.orEmpty()
         imageAdapter = ImageAdapter(
             images = imageList,
-            onRemoveClick = { uri -> viewModel.removeImage(uri) },
-            onImageClick = { uri -> showZoomedImage(uri) }
+            onRemoveClick = { item -> viewModel.removeImage(item) },
+            onImageClick = { item -> showZoomedImage(item) }
         )
-
         binding.recyclerView.apply {
             adapter = imageAdapter
-
-            // Use GridLayoutManager with 2 columns
             layoutManager = GridLayoutManager(context, 2)
         }
     }
@@ -106,10 +109,13 @@ class MyEventsFragment : Fragment() {
     }
 
     // Function to show the zoomed image
-    private fun showZoomedImage(uri: Uri) {
-        binding.zoomedImageView.load(uri) {
+    private fun showZoomedImage(imageItem: ImageItem) {
+        binding.zoomedImageView.load(imageItem.uri) {
             crossfade(true)
         }
+        binding.bandEventText.text = imageItem.bandEvent
+        binding.locationText.text = imageItem.location
+        binding.dateText.text = imageItem.date
         binding.zoomOverlay.visibility = View.VISIBLE
     }
 
@@ -118,22 +124,22 @@ class MyEventsFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.imageUris.observe(viewLifecycleOwner) { uris ->
+        viewModel.imageItems.observe(viewLifecycleOwner) { items ->
             // Update the adapter with the new list and both click listeners
             imageAdapter = ImageAdapter(
-                images = uris,
-                onRemoveClick = { uri -> viewModel.removeImage(uri) },
-                onImageClick = { uri -> showZoomedImage(uri) }
+                images = items,
+                onRemoveClick = { item -> viewModel.removeImage(item) },
+                onImageClick = { item -> showZoomedImage(item) }
             )
             binding.recyclerView.adapter = imageAdapter
 
-            if (uris.size >= 8){
+            if (items.size >= 8){
                 binding.fabAddImage.visibility = View.GONE
             } else {
                 binding.fabAddImage.visibility = View.VISIBLE
             }
 
-            if (uris.isNotEmpty()) {
+            if (items.isNotEmpty()) {
                 val params = binding.fabAddImage.layoutParams as ViewGroup.MarginLayoutParams
                 params.topMargin = 16.dpToPx()
                 binding.fabAddImage.layoutParams = params

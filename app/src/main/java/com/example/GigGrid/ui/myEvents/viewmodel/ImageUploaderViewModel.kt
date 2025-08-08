@@ -3,23 +3,26 @@ package com.example.GigGrid.ui.myEvents.viewmodel
 import android.content.Context
 import android.net.Uri
 import androidx.core.content.edit
-import androidx.core.net.toUri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.GigGrid.ui.UriTypeAdapter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.example.GigGrid.ui.myEvents.ImageItem
+import com.google.gson.GsonBuilder
 
 class ImageUploaderViewModel (private val context: Context): ViewModel() {
+    
+    private val _imageItems = MutableLiveData<List<ImageItem>>(emptyList())
+    val imageItems: LiveData<List<ImageItem>> = _imageItems
+    private val maxImages = 8
+    private val prefsName = "image_uploader_prefs"
+    private val keyImageItems = "image_items"
 
-    // LiveData to hold the list of image URIs
-    private val _imageUris = MutableLiveData<List<Uri>>(emptyList())
-    val imageUris: LiveData<List<Uri>> = _imageUris
-
-    // Maximum number of images allowed
-    private val MAX_IMAGES = 8
-    private val PREFS_NAME = "image_uploader_prefs"
-    private val KEY_IMAGE_URIS = "image_uris"
+    private val gson: Gson = GsonBuilder()
+        .registerTypeAdapter(Uri::class.java, UriTypeAdapter())
+        .create()
 
     // This block runs when the ViewModel is first created
     init {
@@ -27,45 +30,40 @@ class ImageUploaderViewModel (private val context: Context): ViewModel() {
     }
 
     private fun loadImages() {
-        val sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        val jsonString = sharedPreferences.getString(KEY_IMAGE_URIS, null)
+        val sharedPreferences = context.getSharedPreferences(prefsName, Context.MODE_PRIVATE)
+        val jsonString = sharedPreferences.getString(keyImageItems, null)
 
         if (jsonString != null) {
-            val type = object : TypeToken<List<String>>() {}.type
-            val stringList: List<String> = Gson().fromJson(jsonString, type)
-            val uriList = stringList.map { it.toUri() }
-            _imageUris.value = uriList
+           val type = object : TypeToken<List<ImageItem>>() {}.type
+            _imageItems.value = gson.fromJson(jsonString, type)
         }
     }
 
-    /**
-     * Adds a new image URI to the list.
-     * The most recently added image will appear first.
-     */
-    fun addImage(uri: Uri) {
-        val currentList = _imageUris.value.orEmpty().toMutableList()
-        if (currentList.size < MAX_IMAGES) {
+   // The most recently added image will appear first.
+    fun addImage(imageItem: ImageItem) {
+        val currentList = _imageItems.value.orEmpty().toMutableList()
+        if (currentList.size < maxImages) {
             // Add the new URI to the beginning of the list
-            currentList.add(0, uri)
-            _imageUris.value = currentList
+            currentList.add(0, imageItem)
+            _imageItems.value = currentList
             saveImages(currentList)
         }
     }
 
-    fun removeImage(uri: Uri) {
-        val currentList = _imageUris.value.orEmpty().toMutableList()
-        currentList.remove(uri)
-        _imageUris.value = currentList
+    fun removeImage(imageItem: ImageItem) {
+        val currentList = _imageItems.value.orEmpty().toMutableList()
+        currentList.remove(imageItem)
+        _imageItems.value = currentList
         saveImages(currentList) // Persist the updated list
     }
 
-    private fun saveImages(uris: List<Uri>) {
-        val sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        val uriStringList = uris.map { it.toString() }
-        val jsonString = Gson().toJson(uriStringList)
+    private fun saveImages(items: MutableList<ImageItem>) {
+        val sharedPreferences = context.getSharedPreferences(prefsName, Context.MODE_PRIVATE)
+
+        val jsonString = gson.toJson(items)
 
         sharedPreferences.edit {
-            putString(KEY_IMAGE_URIS, jsonString)
+            putString(keyImageItems, jsonString).apply()
         }
     }
 

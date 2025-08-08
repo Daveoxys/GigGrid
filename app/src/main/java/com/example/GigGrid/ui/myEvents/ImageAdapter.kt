@@ -3,16 +3,14 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.GigGrid.R
 import com.example.GigGrid.databinding.ItemImageBinding
 
 class ImageAdapter(
-    private val images: List<Uri>,
-    private val onRemoveClick: (Uri) -> Unit,
-    private val onImageClick: (Uri) -> Unit
+    private val images: List<ImageItem>,
+    private val onRemoveClick: (ImageItem) -> Unit,
+    private val onImageClick: (ImageItem) -> Unit
 ): RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
 
     private var selectedPosition: Int = -1
@@ -22,21 +20,21 @@ class ImageAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
-            imageUri: Uri,
-            onRemoveClick: (Uri) -> Unit,
-            onImageClick: (Uri) -> Unit
+            imageItem: ImageItem,
+            onRemoveClick: (ImageItem) -> Unit,
+            onImageClick: (ImageItem) -> Unit
         )
         {
-            binding.imageView.load(imageUri) {
+            binding.imageView.load(imageItem) {
                 crossfade(true)
             }
             // Set the click listener on the remove button
             binding.removeButton.setOnClickListener {
-                onRemoveClick(imageUri)
+                onRemoveClick(imageItem)
             }
             // Set the click listener for the entire image
             binding.root.setOnClickListener {
-                onImageClick(imageUri)
+                onImageClick(imageItem)
             }
         }
     }
@@ -53,10 +51,10 @@ class ImageAdapter(
     }
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-        val imageUri = images[position]
+        val imageItem = images[position]
 
         // Load the image
-        holder.binding.imageView.load(imageUri) {
+        holder.binding.imageView.load(imageItem.uri) {
             crossfade(true)
         }
 
@@ -67,7 +65,7 @@ class ImageAdapter(
         // Set the click listener for the remove button
         holder.binding.removeButton.setOnClickListener {
             // Call the remove function from the ViewModel
-            onRemoveClick(imageUri)
+            onRemoveClick(imageItem)
             // Reset the selected position after removing
             val previousSelectedPosition = selectedPosition
             selectedPosition = -1
@@ -102,7 +100,7 @@ class ImageAdapter(
                 notifyItemChanged(previousSelectedPosition)
             } else {
                 // Otherwise, perform the zoom action
-                onImageClick(imageUri)
+                onImageClick(imageItem)
             }
         }
     }
