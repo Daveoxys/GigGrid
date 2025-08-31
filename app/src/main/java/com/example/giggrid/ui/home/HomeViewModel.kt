@@ -1,4 +1,4 @@
-package com.example.GigGrid.ui.home
+package com.example.giggrid.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

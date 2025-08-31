@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "GigGrid"
+rootProject.name = "giggrid"
 include(":app")

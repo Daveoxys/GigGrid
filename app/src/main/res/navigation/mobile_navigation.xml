@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.GigGrid.ui.home.HomeFragment"
+        android:name="com.example.giggrid.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_event_diary"
-        android:name="com.example.GigGrid.ui.eventDiary.EventDiaryFragment"
+        android:name="com.example.giggrid.ui.eventDiary.EventDiaryFragment"
         android:label="@string/menu_event_diary"
         tools:layout="@layout/fragment_event_diary" />
 
     <fragment
         android:id="@+id/nav_my_events"
-        android:name="com.example.GigGrid.ui.slideshow.MyEventsFragment"
+        android:name="com.example.giggrid.ui.myEvents.MyEventsFragment"
         android:label="@string/menu_my_events"
         tools:layout="@layout/fragment_my_events" />
 </navigation>

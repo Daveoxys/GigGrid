@@ -1,4 +1,4 @@
-package com.example.GigGrid;
+package com.example.giggrid;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,7 +13,7 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.GigGrid.databinding.ActivityMainBinding;
+import com.example.giggrid.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
