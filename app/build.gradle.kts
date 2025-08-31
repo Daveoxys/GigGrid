@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.GigGrid"
+    namespace = "com.example.giggrid"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.GigGrid"
+        applicationId = "com.example.giggrid"
         minSdk = 24
         targetSdk = 36
         versionCode = 1

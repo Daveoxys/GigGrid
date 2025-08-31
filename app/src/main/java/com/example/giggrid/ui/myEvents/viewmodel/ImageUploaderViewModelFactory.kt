@@ -1,4 +1,4 @@
-package com.example.GigGrid.ui.myEvents.viewmodel
+package com.example.giggrid.ui.myEvents.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.ViewModel

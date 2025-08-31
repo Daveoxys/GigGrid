@@ -1,11 +1,10 @@
-package com.example.GigGrid.ui.myEvents
-import android.net.Uri
+package com.example.giggrid.ui.myEvents
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.GigGrid.databinding.ItemImageBinding
+import com.example.giggrid.databinding.ItemImageBinding
 
 class ImageAdapter(
     private val images: List<ImageItem>,

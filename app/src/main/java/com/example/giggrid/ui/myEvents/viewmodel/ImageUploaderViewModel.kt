@@ -1,4 +1,4 @@
-package com.example.GigGrid.ui.myEvents.viewmodel
+package com.example.giggrid.ui.myEvents.viewmodel
 
 import android.content.Context
 import android.net.Uri
@@ -6,10 +6,10 @@ import androidx.core.content.edit
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.GigGrid.ui.UriTypeAdapter
+import com.example.giggrid.ui.UriTypeAdapter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.example.GigGrid.ui.myEvents.ImageItem
+import com.example.giggrid.ui.myEvents.ImageItem
 import com.google.gson.GsonBuilder
 
 class ImageUploaderViewModel (private val context: Context): ViewModel() {

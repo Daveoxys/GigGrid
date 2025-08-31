@@ -1,4 +1,4 @@
-package com.example.GigGrid.ui.myEvents
+package com.example.giggrid.ui.myEvents
 
 import android.net.Uri
 import android.os.Parcelable

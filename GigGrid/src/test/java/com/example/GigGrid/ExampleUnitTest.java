@@ -1,4 +1,4 @@
-package com.example.GigGrid;
+package com.example.giggrid;
 
 import org.junit.Test;
 

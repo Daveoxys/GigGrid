@@ -1,4 +1,4 @@
-package com.example.GigGrid.ui.eventDiary;
+package com.example.giggrid.ui.eventDiary;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.GigGrid.databinding.FragmentGalleryBinding;
+import com.example.giggrid.databinding.FragmentGalleryBinding;
 
 public class GalleryFragment extends Fragment {
 

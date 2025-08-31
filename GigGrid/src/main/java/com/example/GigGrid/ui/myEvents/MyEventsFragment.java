@@ -1,4 +1,4 @@
-package com.example.GigGrid.ui.myEvents;
+package com.example.giggrid.ui.myEvents;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.GigGrid.databinding.FragmentSlideshowBinding;
+import com.example.giggrid.databinding.FragmentSlideshowBinding;
 
 public class SlideshowFragment extends Fragment {
 

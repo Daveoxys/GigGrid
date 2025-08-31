@@ -1,16 +1,13 @@
-package com.example.GigGrid.ui.myEvents
+package com.example.giggrid.ui.myEvents
 
 import android.app.DatePickerDialog
 import android.icu.util.Calendar
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.example.GigGrid.R
-import java.util.zip.Inflater
-import com.example.GigGrid.databinding.DialogImageDetailsBinding
+import com.example.giggrid.databinding.DialogImageDetailsBinding
 import java.text.SimpleDateFormat
 import java.util.Locale
 

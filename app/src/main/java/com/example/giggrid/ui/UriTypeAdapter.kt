@@ -1,4 +1,4 @@
-package com.example.GigGrid.ui
+package com.example.giggrid.ui
 
 import android.net.Uri
 import com.google.gson.*

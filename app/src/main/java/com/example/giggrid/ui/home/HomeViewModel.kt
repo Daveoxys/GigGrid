@@ -1,13 +1,13 @@
-package com.example.GigGrid.ui.myEvents.viewmodel
+package com.example.giggrid.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class MyEventsViewViewModel : ViewModel() {
+class HomeViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is slideshow Fragment"
+        value = "This is home Fragment"
     }
     val text: LiveData<String> = _text
 }
