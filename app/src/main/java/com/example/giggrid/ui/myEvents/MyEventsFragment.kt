@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import coil.load
 import com.example.giggrid.databinding.FragmentMyEventsBinding
 import com.example.giggrid.ui.myEvents.viewmodel.ImageUploaderViewModel
+import androidx.core.view.isVisible
 
 class MyEventsFragment : Fragment() {
 
@@ -97,7 +98,7 @@ class MyEventsFragment : Fragment() {
 
         // Handle the system back button to close the zoomed image
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            if (binding.zoomOverlay.visibility == View.VISIBLE) {
+            if (binding.zoomOverlay.isVisible) {
                 hideZoomedImage()
             } else {
                 // If not zoomed, let the back button behave normally

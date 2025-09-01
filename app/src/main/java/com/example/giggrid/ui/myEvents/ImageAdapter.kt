@@ -75,7 +75,7 @@ class ImageAdapter(
         holder.binding.root.setOnLongClickListener {
             val previousSelectedPosition = selectedPosition
             // Update the selected position to the current item
-            selectedPosition = holder.adapterPosition
+            selectedPosition = holder.bindingAdapterPosition
 
             // Notify the adapter to refresh the old and new positions
             if (previousSelectedPosition != -1) {
