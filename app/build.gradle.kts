@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("kotlin-parcelize")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -59,18 +60,24 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx)
 
     // For Coroutines (used in ViewModel)
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.3")
+    implementation(libs.androidx.lifecycle.runtime.ktx)
 
-// UI
+    // UI
     implementation("androidx.recyclerview:recyclerview:1.4.0")
-    implementation("com.google.android.material:material:1.12.0")
+    implementation(libs.material)
 
-// Image Loading Library (Coil is a good modern choice)
+    // Image Loading Library (Coil is a good modern choice)
     implementation("io.coil-kt:coil:2.7.0")
 
-// Activity Result API (for image picking)
+    // Activity Result API (for image picking)
     implementation("androidx.activity:activity-ktx:1.10.1")
     implementation("androidx.fragment:fragment-ktx:1.8.9")
+
+    // Import the Firebase BoM
+    implementation(platform("com.google.firebase:firebase-bom:34.2.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-storage-ktx")
 
     implementation("com.google.code.gson:gson:2.13.1")
 }

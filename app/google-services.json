@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "346294086791",
+    "project_id": "giggrid-29e88",
+    "storage_bucket": "giggrid-29e88.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:346294086791:android:2413e7671361979152dc22",
+        "android_client_info": {
+          "package_name": "com.example.giggrid"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDazvrUsO9itvR4Mb1rYUwPRifi5NAPDLY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
